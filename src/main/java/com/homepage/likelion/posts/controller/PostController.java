@@ -1,5 +1,6 @@
 package com.homepage.likelion.posts.controller;
 
+import com.homepage.likelion.posts.dto.PostCreateDto;
 import com.homepage.likelion.posts.service.PostService;
 import com.homepage.likelion.util.response.CustomApiResponse;
 import jakarta.validation.Valid;
