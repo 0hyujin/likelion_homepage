@@ -1,6 +1,8 @@
 package com.homepage.likelion.posts.service;
 
+import com.homepage.likelion.posts.dto.PostCreateDto;
 import com.homepage.likelion.util.response.CustomApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 
 public interface PostService {
