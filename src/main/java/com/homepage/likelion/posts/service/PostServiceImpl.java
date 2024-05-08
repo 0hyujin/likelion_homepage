@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService{
 
         // 생성된 게시글의 정보를 포함한 응답 반환
         PostCreateDto.CreatePost createdPostResponse = new PostCreateDto.CreatePost(savedPost.getId(), savedPost.getUpdatedAt());
-        CustomApiResponse<PostCreateDto.CreatePost> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), null,"게시글이 작성되었습니다.");
+        CustomApiResponse<PostCreateDto.CreatePost> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), createdPostResponse,"게시글이 작성되었습니다.");
         return ResponseEntity.ok(res);
     }
 

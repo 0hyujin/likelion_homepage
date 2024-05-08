@@ -6,10 +6,7 @@ import com.homepage.likelion.util.response.CustomApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/post")
@@ -25,6 +22,15 @@ public class PostController {
     public ResponseEntity<CustomApiResponse<?>> createPost(
             @Valid @RequestBody PostCreateDto.Req req) {
         ResponseEntity<CustomApiResponse<?>> result = postService.createPost(req);
+        return result;
+    }
+
+    // 게시글 수정
+    @PutMapping("/{postId}")
+    public ResponseEntity<CustomApiResponse<?>> modifyPost(
+            @PathVariable("postId") Long postId,
+            @RequestBody PostUpdateDto.Req req) {
+        ResponseEntity<CustomApiResponse<?>> result = postService.modifyPost(postId, req);
         return result;
     }
 }
