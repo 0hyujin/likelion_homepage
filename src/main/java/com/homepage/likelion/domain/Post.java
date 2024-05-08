@@ -7,7 +7,8 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "posts")
+@Entity
+@Table(name = "POSTS")
 @Builder
 public class Post extends BaseEntity {
 
