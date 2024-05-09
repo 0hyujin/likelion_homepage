@@ -30,20 +30,5 @@ public class PostListDto {
         public SearchPostsRes(List<PostListDto.PostResponse> posts) {
             this.posts = posts;
         }
-
-
-        // Post 엔티티 리스트를 받아서 SearchPostsRes 인스턴스 생성
-        public static PostListDto.SearchPostsRes fromEntityList(List<Post> postList) {
-            // postList에서 필요한 요소들 꺼내서 반환 타입 생성
-            List<PostListDto.PostResponse> postResponses = postList.stream()
-                    .map(post -> new PostListDto.PostResponse(
-                            post.getId(), // 게시글 고유 식별 아이디
-                            post.getPostedUserName(), // 작성자 이름
-                            post.getTitle(), // 게시글 제목
-                            post.getContent(), // 게시글 내용
-                            post.getUpdatedAt())) // 최종 수정 시간
-                    .collect(Collectors.toList());
-            return new PostListDto.SearchPostsRes(postResponses);
-        }
     }
 }
