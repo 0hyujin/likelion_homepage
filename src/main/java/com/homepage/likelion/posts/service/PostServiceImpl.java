@@ -45,14 +45,15 @@ public class PostServiceImpl implements PostService{
     // 게시글 수정
     @Override
     public ResponseEntity<CustomApiResponse<?>> modifyPost(Long postId, PostUpdateDto.Req req) {
-        // 게시글을 수정하고 저장
+        // 게시물 검색
         Optional<Post> optionalPost = postRepository.findById(postId);
 
+        // 게시물 업데이트
         Post post = optionalPost.get();
         post.changeTitle(req.getTitle());
         post.changeContent(req.getContent());
         post.changeUserName(req.getPostedUserName());
-        postRepository.flush();
+        postRepository.flush(); // 변경 사항을 데이터베이스에 즉시 적용
 
         // 수정된 게시글 정보 응답
         PostUpdateDto.UpdatePost data = new PostUpdateDto.UpdatePost(post.getUpdatedAt());
