@@ -2,6 +2,7 @@ package com.homepage.likelion.posts.service;
 
 import com.homepage.likelion.domain.Post;
 import com.homepage.likelion.posts.dto.PostCreateDto;
+import com.homepage.likelion.posts.dto.PostListDto;
 import com.homepage.likelion.posts.dto.PostUpdateDto;
 import com.homepage.likelion.posts.repository.PostRepository;
 import com.homepage.likelion.util.response.CustomApiResponse;
@@ -10,7 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,6 +62,28 @@ public class PostServiceImpl implements PostService{
         // 수정된 게시글 정보 응답
         PostUpdateDto.UpdatePost data = new PostUpdateDto.UpdatePost(post.getUpdatedAt());
         CustomApiResponse<PostUpdateDto.UpdatePost> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), data, "게시글이 수정되었습니다.");
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+
+    // 게시글 전체 조회
+    @Override
+    public ResponseEntity<CustomApiResponse<?>> getAllPost() {
+        List<Post> posts = postRepository.findAll();
+        List<PostListDto.PostResponse> postResponses = new ArrayList<>();
+
+        for (Post post : posts) {
+            postResponses.add(PostListDto.PostResponse.builder()
+                    .postId(post.getId())
+                    .postedUserName(post.getPostedUserName())
+                    .title(post.getTitle())
+                    .content(post.getContent())
+                    .updatedAt(post.getUpdatedAt())
+                    .build());
+        }
+
+        PostListDto.SearchPostsRes searchPostsRes = new PostListDto.SearchPostsRes(postResponses);
+        CustomApiResponse<PostListDto.SearchPostsRes> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), searchPostsRes, "전체 게시글 조회 성공");
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
