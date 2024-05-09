@@ -87,4 +87,25 @@ public class PostServiceImpl implements PostService{
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
+    // 게시글 한개 조회
+    @Override
+    public ResponseEntity<CustomApiResponse<?>> getOnePost(Long postId) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        if (optionalPost.isEmpty()) {
+            CustomApiResponse<Void> res = CustomApiResponse.createFailWithoutData(HttpStatus.NOT_FOUND.value(), "해당하는 게시글을 찾을 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(res);
+        }
+
+        Post post = optionalPost.get();
+        PostListDto.PostResponse postResponse = new PostListDto.PostResponse(
+                post.getId(),
+                post.getPostedUserName(),
+                post.getTitle(),
+                post.getContent(),
+                post.getUpdatedAt());
+
+        CustomApiResponse<PostListDto.PostResponse> res = CustomApiResponse.createSuccess(HttpStatus.OK.value(), postResponse, "게시글 조회 성공");
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
 }

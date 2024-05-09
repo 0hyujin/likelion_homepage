@@ -1,11 +1,9 @@
 package com.homepage.likelion.posts.dto;
 
-import com.homepage.likelion.domain.Post;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 // 게시글 조회 응답 DTO
 public class PostListDto {
