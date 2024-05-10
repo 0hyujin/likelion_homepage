@@ -20,16 +20,6 @@ public class PostUpdateDto {
         private String password; // 비밀번호
         private String title; // 게시글 제목
         private String content; // 게시글 내용
-
-        public Post toEntity() {
-            return Post.builder()
-                    .id(postId) // 수정할 게시글의 ID
-                    .postedUserName(postedUserName)
-                    .password(password)
-                    .title(title)
-                    .content(content)
-                    .build();
-        }
     }
 
     // 수정 api Response
